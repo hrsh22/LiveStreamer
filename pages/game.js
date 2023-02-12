@@ -52,7 +52,6 @@ class Game extends React.Component {
     console.log(`checked = ${e.target.checked}`);
   }
 
-
   properties = {
     name: 'file',
     multiple: true,
@@ -78,10 +77,8 @@ class Game extends React.Component {
     return axios
         .post(url, JSONBody, {
             headers: {
-                // pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
-          pinata_api_key: 'bbad2180bb3c55423327',
-          pinata_secret_api_key: 'cf7356e190677b58486db071df0d472930240f5b43a2cdd09b4cd850eee0b4f0'
-          // pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
+                pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+          pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
             }
         })
         .then(function (response) {
@@ -133,8 +130,8 @@ class Game extends React.Component {
         {
           headers: {
             "content-type": "application/json",
-            authorization: `Bearer 93320118-34f7-4278-87b4-4c7e40641eff`, // API Key needs to be passed as a header
-            // authorization: `Bearer ${process.env.NEXT_PUBLIC_LIVEPEER_API_KEY}`, // API Key needs to be passed as a header
+            // authorization: `Bearer 93320118-34f7-4278-87b4-4c7e40641eff`, // API Key needs to be passed as a header
+            authorization: `Bearer ${process.env.NEXT_PUBLIC_LIVEPEER_API_KEY}`, // API Key needs to be passed as a header
           },
         }
       );

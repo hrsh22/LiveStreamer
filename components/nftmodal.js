@@ -27,8 +27,6 @@ import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 const { Option } = Select;
 
-
-
 class Nftmodal extends React.Component {
   constructor(props) {
     super(props);
@@ -45,16 +43,14 @@ class Nftmodal extends React.Component {
     return axios
     .post(url, JSONBody, {
       headers: {
-        // pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
-        pinata_api_key:'bbad2180bb3c55423327',
-        // pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
-        pinata_secret_api_key: 'cf7356e190677b58486db071df0d472930240f5b43a2cdd09b4cd850eee0b4f0'
+        pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+        pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
       }
     })
     .then(function (response) {
 
       onIPFSUpload(response.data.IpfsHash, nftImageIFSCResponse, JSONBody);
-      console.log(response);
+      console.log("responserrrr",response);
         //handle response here
     })
     .catch(function (error) {
@@ -67,8 +63,7 @@ class Nftmodal extends React.Component {
     const { nftImageIFSCResponse } = this.state;
     const { stream, streamerAddress } = this.props;
     console.log("nftImageIFSCResponse", nftImageIFSCResponse);
-    console.log('Received values of form: ', values);
-
+    
     const streamCreateData = {
       ingest_url: "rtmp://rtmp.livepeer.com/live/",
       stream_key: stream.streamKey,
@@ -80,7 +75,8 @@ class Nftmodal extends React.Component {
       nft_symbol: values.nft_symbol,
       streamer_address: streamerAddress
     }
-
+    
+    console.log('Received values of form: ', values);
     this.pinJSONToIPFS(streamCreateData);
     this.onModalClose();
   };
@@ -109,10 +105,8 @@ class Nftmodal extends React.Component {
       maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
       headers: {
           'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-          // pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
-          pinata_api_key: 'bbad2180bb3c55423327',
-          pinata_secret_api_key: 'cf7356e190677b58486db071df0d472930240f5b43a2cdd09b4cd850eee0b4f0'
-          // pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
+          pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+          pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
       }      
     })
     .then((response) => {
@@ -224,9 +218,9 @@ class Nftmodal extends React.Component {
               }
 
               <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                <Button type="primary" htmlType="submit">
+                <button   className=" px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" type="primary">
                   Start Stream
-                </Button>
+                </button>
               </Form.Item>
             </Form>
           </div>

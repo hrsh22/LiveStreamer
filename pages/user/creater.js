@@ -81,21 +81,21 @@ class Creater extends React.Component {
         //   playback_url: "https://cdn.livepeer.com/hls/3a8dsveuy8dc3fxi/index.m3u8",
         //   active: true
         // },
-        {
-          stream_name: "Stream Name",
-          ipfsHash: "QmSFD715swS5AqTxU1nJBHZisxtuSD18ygRE4ix9UBbjiU",
-          nft_image:
-            "https://ipfs.io/ipfs/QmW93a1P5ADoUmjtjnCnrmuDHmKM9M9xEPFJbtG2hAVzSG",
-          ingest_url: "rtmp://rtmp.livepeer.com/live/",
-          stream_key: "3a8d-vq9q-dj24-tenr",
-          playback_url:
-            "https://cdn.livepeer.com/hls/3a8dsveuy8dc3fxi/index.m3u8",
-          active: true,
-        },
+        // {
+        //   stream_name: "Stream Name",
+        //   ipfsHash: "QmSFD715swS5AqTxU1nJBHZisxtuSD18ygRE4ix9UBbjiU",
+        //   nft_image:
+        //     "https://ipfs.io/ipfs/QmW93a1P5ADoUmjtjnCnrmuDHmKM9M9xEPFJbtG2hAVzSG",
+        //   ingest_url: "rtmp://rtmp.livepeer.com/live/",
+        //   stream_key: "3a8d-vq9q-dj24-tenr",
+        //   playback_url:
+        //     "https://cdn.livepeer.com/hls/3a8dsveuy8dc3fxi/index.m3u8",
+        //   active: true,
+        // },
       ],
     };
   }
-
+  
   componentDidMount() {
     this.getData();
     this.setAddress();
@@ -110,8 +110,7 @@ class Creater extends React.Component {
     const options = {
       method: "GET",
       url: `https://api.covalenthq.com/v1/${NETWORK_URL}/address/${address}/balances_v2/`,
-      params: { nft: "true", key: "ckey_7ad6e82f790247cd96a443831a3" },
-      // params: { nft: 'true', key: process.env.NEXT_PUBLIC_COVALENT_API }
+      params: { nft: 'true', key: process.env.NEXT_PUBLIC_COVALENT_API }
     };
 
     const data = await axios
@@ -214,8 +213,7 @@ class Creater extends React.Component {
         {
           headers: {
             "content-type": "application/json",
-            // authorization: `Bearer ${process.env.NEXT_PUBLIC_LIVEPEER_API_KEY}`, // API Key needs to be passed as a header
-            authorization: `Bearer 93320118-34f7-4278-87b4-4c7e40641eff`, // API Key needs to be passed as a header
+            authorization: `Bearer ${process.env.NEXT_PUBLIC_LIVEPEER_API_KEY}`, // API Key needs to be passed as a header
           },
         }
       );
@@ -314,18 +312,17 @@ class Creater extends React.Component {
     return (
       <>
         <Navbar />
-
         <Layout>
           <Content
             className="site-layout"
             style={{ padding: "0 40px", marginTop: 40 }}
           >
-              <div class="relative">
-  <div class="absolute top-0 right-5">
+              <div className="relative">
+  <div className="absolute top-0 right-5">
                 <button
                   onClick={this.createStream}
                   type="button"
-                  class=" px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  className=" px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
                   Start New Stream
                 </button>
@@ -347,7 +344,7 @@ class Creater extends React.Component {
                       <button
                         onClick={this.createStream}
                         type="button"
-                        class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                        className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                       >
                         Start New Stream
                       </button>
@@ -355,8 +352,8 @@ class Creater extends React.Component {
                   />
                 </>
               ) : (
-                <div class="">
-                  <div class="block p-6 rounded-lg shadow-lg bg-white ">
+                <div className="">
+                  <div className="block p-6 rounded-lg shadow-lg bg-white ">
                   <Title level={1}>🍜 Streams you created</Title>
                   <hr />
                   <br />
@@ -372,15 +369,10 @@ class Creater extends React.Component {
                                 <img alt="example" src={`${item.nft_image}`} />
                               }
                               actions={[
-                                <a
-                                  target="_blank"
-                                  href={`/play/${item.ipfsHash.substring(21)}`}
-                                >
-                                  {" "}
-                                  <button   type="button"
-                  class=" px-5 py-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                key="play"> Go to Stream </button>{" "}
-                                </a>,
+                                                                
+                                  <a   type="button" href={`/play/${item.ipfsHash.substring(21)}`}  target="_blank"  rel="noreferrer"
+                  className=" px-5 py-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                key="play"> Go to Stream </a>,
                                 item.newly_added && (
                                   <Mintnft
                                     address={address}
@@ -424,7 +416,7 @@ class Creater extends React.Component {
                     <button
                       onClick={this.createStream}
                       type="button"
-                      class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                      className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                     >
                       Add Stream
                     </button>
@@ -432,8 +424,8 @@ class Creater extends React.Component {
                   />
                   </>
               ) : (
-                <div class="">
-                <div class="block p-6 rounded-lg shadow-lg bg-white ">
+                <div className="">
+                <div className="block p-6 rounded-lg shadow-lg bg-white ">
               <Title level={1}>👏 Streams you were part of</Title><hr /><br />
                 <Row>
                   {cardItems.map((item, index) => {
@@ -466,7 +458,7 @@ class Creater extends React.Component {
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
+          © 2023 LiveStreamer, Inc. All rights reserved.
           </Footer>
         </Layout>
 

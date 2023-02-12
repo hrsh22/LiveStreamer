@@ -3,18 +3,15 @@ import axios from 'axios';
 import { ethers } from "ethers";
 import { Chat } from "@pushprotocol/uiweb";
 import { Framework } from "@superfluid-finance/sdk-core";
-
-import { LoadingOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-
-import { Avatar, Layout, Spin, Row, Col, Card,Skeleton, Image, Button, Input, Popover, Typography, Space } from 'antd';
-const { Meta } = Card;
-
+import { Conversation } from '../../components/xmtp/Conversation'
 import Navbar from '../../components/navbar'
+import { HuddleClientProvider,  getHuddleClient,} from "@huddle01/huddle01-client";
+import { LoadingOutlined,PlusCircleTwoTone ,WechatOutlined,VideoCameraOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar,Result,message, Layout, Spin, Row, Col, Card,Skeleton, Image, Button, Input, Popover, Typography, Space } from 'antd';
 
+const { Meta } = Card;
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text, Link } = Typography;
-import VideoJS from '../../components/VideoJS';
-
 const gridStyle = {
   width: '33.33%',
   textAlign: 'center',
@@ -107,7 +104,7 @@ class Player extends React.Component {
   }
 
   connectWallet = async () => {
-    console.log("connectWallet")
+    // console.log("connectWallet")
     if (this.state.address) return null
     const { ethereum } = window;
     await ethereum.request({ method: 'eth_requestAccounts' });
@@ -154,8 +151,7 @@ class Player extends React.Component {
     const options = {
       method: 'POST',
       url: 'https://api.nftport.xyz/v0/mints/easy/urls',
-      headers: { 'Content-Type': 'application/json', Authorization: 'bfb1eeca-e144-4c3b-82ab-13d5bef82804' },
-      // headers: { 'Content-Type': 'application/json', Authorization: process.env.NEXT_PUBLIC_NFT_PORT_API_KEY },
+      headers: { 'Content-Type': 'application/json', Authorization: process.env.NEXT_PUBLIC_NFT_PORT_API_KEY },
       data: {
         chain: 'polygon',
         name: nft_name,
@@ -185,8 +181,7 @@ class Player extends React.Component {
     if (ethers.utils.isAddress(inputAddress)) {
       this.setMintAddress(inputAddress);
     } else {
-      const provider = new ethers.providers.AlchemyProvider(null, 'Mi8Rd86q2Z3ngHOnGLe0yaYjIhrjIIOR');
-      // const provider = new ethers.providers.AlchemyProvider(null, process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
+      const provider = new ethers.providers.AlchemyProvider(null, process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
       const address = await provider.resolveName(inputAddress)
 
       try {
@@ -279,6 +274,23 @@ class Player extends React.Component {
 
 
   render() {
+
+    const huddleClient = getHuddleClient(process.env.NEXT_PUBLIC_HUDDLE_API_KEY);
+
+
+  const handleJoin = async () => {
+    try {
+      await huddleClient.join(stream_key, {
+        address: address,
+        wallet: "",
+      });
+
+      console.log("joined");
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
     const { pid } = this.props;
     const {
       isLoading,
@@ -316,6 +328,10 @@ class Player extends React.Component {
         src: playback_url
       }]
     }
+    const confirm = (e) => {
+      console.log(e);
+      message.success('Link Copied');
+    };
 
     return (
       <>
@@ -329,7 +345,7 @@ class Player extends React.Component {
                   <div data-vjs-player className=" px-200">
                     {playback_url ? (
                       <>
-                        <VideoJS options={videoJsOptions} onReady={this.handlePlayerReady} />
+                        <  HuddleClientProvider options={videoJsOptions} onReady={this.handlePlayerReady} />
                         <br />
                         <Title level={1}>{stream_name}</Title>
                         <Title level={5}>By: {streamer_address}</Title>
@@ -357,79 +373,47 @@ class Player extends React.Component {
                       width: '100%',
                     }}
                     cover={
-                      <img
-                        alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                      />
+                      <LiveStream />
                     }
                     actions={[
-                      <SettingOutlined key="setting" />,
+                      <VideoCameraOutlined key="videocamoutline" />,
                       <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
+        
+                      <Popover placement="top" className="rounded-full" content={<Conversation recipientWalletAddr={recipientWalletAddr ?? ''} />} trigger="click">
+                      <WechatOutlined key="wechat" />
+                    </Popover>
                     ]}
                   >
                     <Meta className="p-10" 
-                      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                      title="Card title"
-                      description="This is the description"
+                      title={(address || '').substring(0,18)+'...'}
+                      description={'Viewer Address: '+(address || '').substring(0,31)+'...'}
                     />
                   </Card></Card.Grid>
-                  <Card.Grid hoverable={false} style={gridStyle}>
-                    <Card
-                      style={{
-                        width: '100%',
-                      }}
-                      cover={
-                        <img
-                          alt="example"
-                          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                        />
-                      }
-                      actions={[
-                        <SettingOutlined key="setting" />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                      ]}
-                    >
-                      <Meta className="p-10" 
-                        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                        title="Card title"
-                        description="This is the description"
-                      />
-                    </Card>
+               
+                  <Card.Grid style={gridStyle}>
+                      
+                  <Result
+
+icon={<PlusCircleTwoTone />}
+
+title="Add your Firends"
+extra={
+  <button
+    onClick={confirm}
+    type="button"
+    className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+  >
+    Share Stream
+  </button>
+}
+/>             
                   </Card.Grid>
-                  <Card.Grid style={gridStyle}>  <Card
-                    style={{
-                      width: '100%',
-                    }}
-                    cover={
-                      <img
-                        alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                      />
-                    }
-                    actions={[
-                      <SettingOutlined key="setting" />,
-                      <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
-                    ]}
-                  >
-                    <Meta className="p-10" 
-                      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                      title="Card title"
-                      description="This is the description"
-                    />
-                  </Card></Card.Grid>
-
                 </Card>
-
-
               </Col>
               {/* {ipfsResponse} */}
-
               {!isLoading ? (
                 <>
-                  <Col span={6} offset={1}>
+                  <Col span={6} offset={1}> 
                     <div className='mr-10 w-full border-8 border-solid rounded-lg  border-white bg-white'>
 
                       <Image
@@ -447,15 +431,12 @@ class Player extends React.Component {
                       <br />
                       {address ?
                         <Button onClick={this.setConnectedWalletAddressAsMintAddress} type="button"
-                          class="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" size="large" block >Select {address.substring(0, 7)} </Button> :
+                          className="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" size="large" block >Select {address.substring(0, 7)} </Button> :
                         <div>
                           <Button onClick={this.connectWallet} type="button"
-                            class="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" size="large" block>Connect Wallet</Button>
-
+                            className="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" size="large" block>Connect Wallet</Button>
                         </div>
-
                       }
-
                       <br />
                       <Space direction="horizontal" style={{ width: '100%', justifyContent: 'center' }}>
 
@@ -466,7 +447,7 @@ class Player extends React.Component {
                       <Input.Group compact>
                         <Input style={{ width: 'calc(100% - 80px)' }} placeholder="Enter address or ens" name="address" onChange={this.handleInputChange} />
                         <Button type="button"
-                          class="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" onClick={this.onAddingAddress}>Submit</Button>
+                          className="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" onClick={this.onAddingAddress}>Submit</Button>
                       </Input.Group>
                       <div>
                         <Space direction="horizontal" style={{ width: '100%', justifyContent: 'center', padding: "5px" }}>
@@ -490,16 +471,17 @@ class Player extends React.Component {
                           size="large"
                           block
                           type="button"
-                          class="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                          className="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
                           onClick={this.mintNFTPort}
                         >Mint NFT without Gas</Button>
                       </Popover>
+
                       <br />
                       <br />
                       <Popover content="Subscribe via Superfluid" title="Subscribe">
                         <Button
                           type="button"
-                          class="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                          className="w-full items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
                           size="large"
                           block
                           onClick={this.createFlow}
@@ -518,10 +500,7 @@ class Player extends React.Component {
     <Card type="inner"  className="mt-4 rounded-md"  title="Inner Card title" extra={<a href="#">More</a>}>
       Inner Card content
     </Card>
-
-   
   </Card>
-
                         </div>
                   </Col>
                 </>
@@ -533,16 +512,7 @@ class Player extends React.Component {
               /></div>}
             </Row>
           </Content>
-          <Chat
-            account={address} //user address
-            // We cant send message to send address so we Hardcode other address
-            // supportAddress={support_Address} //support address
-            supportAddress="0xC76139fcB9e4952CE9Fb3183C6c3af69534233FE" //support address
-            // const key = process.env.apiKey;
-            apiKey="jVPMCRom1B.iDRMswdehJG7NpHDiECIHwYMMv6k2KzkPJscFIDyW8TtSnk4blYnGa8DIkfuacU0"
-            env="staging"
-            modalTitle="Help Desk"
-          />
+       
         </Layout>
       </>
     );
