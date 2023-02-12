@@ -2,12 +2,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Navbar from '../components/navbar'
-import { useAccount } from "wagmi";
+
 import { Chat } from "@pushprotocol/uiweb";
 
 
 export default function Home(props) {
-  const { address1 } = useAccount();
+ 
  
   return (
 
@@ -308,7 +308,7 @@ export default function Home(props) {
 
 
       <Chat
-          account={address} //user address
+          account="0xB78721b29c028B16ab25f4a2adE1d25fbf8B2d74" //user address
           supportAddress="0xC76139fcB9e4952CE9Fb3183C6c3af69534233FE" //support address
           apiKey={process.env.NEXT_PUBLIC_PUSH_API}
           env="staging"
