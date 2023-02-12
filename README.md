@@ -1,63 +1,68 @@
 # Live Streamer
-LiveStreamer is a decentralized streaming platform that gives viewers generative NFT and allows them to support the creators through subscriptions. Various technologies are incorporated into the platform to provide users with a comprehensive and engaging experience. As the platform's underlying infrastructure, Livepeer supports scalable and low-cost live streaming to a global audience.
+LiveStreamer is a decentralized streaming platform that empowers viewers with generative NFTs and enables them to support creators through subscriptions. It leverages various technologies to provide an all-inclusive and captivating experience for users. The platform is built on Livepeer, which supports efficient and low-cost live streaming to a worldwide audience.
 
+On LiveStreamer, streamers have the option to start a new stream using Livepeer and upload an accompanying NFT. The stream information, along with any relevant URLs and details for future NFT creation, is stored on IPFS. The IPFS hash is then recorded on the blockchain as an ERC721 token through Polygon blockchain, ensuring the secure and transparent storage of stream and associated data.
 
-<hr/>
-
-[![](https://i.ibb.co/7kYR0v5/Screenshot-33-4.png)](https://drive.google.com/file/d/1wZm1RPq9dYeWT5QZniQEjFxXLubuenkn/view?usp=sharing )
-[![](https://i.ibb.co/0t4bgFn/FVB.png)](https://docs.google.com/presentation/d/1N2zJrQbRtcU5fjORpFprkB0AUkldNkTboZIUJXnt6_Y/edit?usp=sharing)
-
-<hr/>
-
-On LiveStreamer, streamers are able to create a new stream using Livepeer. They have the option to upload an NFT to accompany their stream. The stream data, along with any related URLs and information for future NFT generation, is stored in IPF. The IPFS hash is then stored on the blockchain as an ERC721 token, using Polygon blockchain. This allows for the stream and its associated data to be securely and transparently recorded and stored on the blockchain.
-
-The viewer has the option to generate a viewer NFT through NFTPort, which is minted without the need for gas. The NFT is published to the Polygon blockchain and is generated using an NFT image uploaded from IPFS, the address of the streamer and viewer, and the viewer's avatar if they have set one through ENS. Generative NFTs are created in this manner every time they are requested, allowing for the creation of unique and collectible items for the viewer 
+Viewers can also generate their own NFTs through NFTPort without incurring gas costs. The NFT is minted and published to the Polygon blockchain and is generated using an NFT image uploaded from IPFS, the streamer's and viewer's addresses, and the viewer's avatar if they have set it through ENS. This process results in the creation of unique and collectible NFTs every time they are requested.
 
 ## Goals
-Some potential goals for the LiveStreamer includes:
-- Expanding the user base: One potential goal is to increase its user base and attract more streamers and viewers to the platform. To make the platform more appealing to potential users, marketing efforts and outreach can be undertaken, as well as adding new features and continuously improving the platform.
-- User engagement and retention: A key goal for any platform is to keep users engaged and coming back to the platform. LiveStreamer could aim to increase user engagement and retention through the implementation of new features which aim towards better interaction between creators and audience.
-- Innovation and differentiation: As the live streaming space is highly competitive, LiveStreamer may aim to differentiate itself from other platforms through the implementation of innovative and unique features. This could help the platform stand out in the market and attract a dedicated user base.
 
-# Technology we used
+- Expanding user base: LiveStreamer aims to attract more streamers and viewers by increasing its user base and enhancing its platform through marketing efforts, new features, and continuous improvement.
+- User engagement and retention: The platform strives to keep users engaged and coming back through the implementation of features that enhance interaction between creators and audience.
+- Innovation and differentiation: LiveStreamer seeks to distinguish itself from other live streaming platforms by incorporating innovative and unique features. This helps the platform stand out in a highly competitive market and attract a dedicated user base.
 
-- Huddle01 provides a feature that lets users turn on their cameras while watching a stream, providing an extra layer of immersiveness and interactivity for both the streamer and the audience. An optional feature, users can activate or deactivate it at their discretion.
+## Technology Used
 
-- The Ethereum Name Service (ENS) maps usernames to Ethereum wallet addresses on the platform. It provides a more user-friendly experience since users do not have to enter the wallet address every time they want to mint NFTs. Moreover, it adds an extra layer of security, since users can protect their wallet addresses with memorable and unique usernames.
+- Huddle01 allows users to turn on their cameras during streams, adding an immersive and interactive layer for both streamer and audience. This is an optional feature that users can enable or disable at their discretion.
 
-- NFTPort enables live streams to be transformed into non-fungible tokens (NFTs). This enables streamers to sell their streams as unique, collectible items, generating additional revenue for them and giving the platform a new dimension. NFTPort is also used for retrieving the Live Streams minted by users.
+- Ethereum Name Service (ENS) maps usernames to Ethereum wallet addresses and enhances user experience by eliminating the need for entering wallet addresses every time NFTs are minted. It also provides extra security with memorable and unique usernames.
 
-- The Polygon blockchain provides streamers with security, transparency, and additional monetization opportunities, as well as adding a collectible aspect to their platform. This feature, enabled through the integration of NFTPort, adds a unique and collectible aspect to the LiveStreamer application and further sets it apart from other live streaming platforms.
+- NFTPort transforms live streams into non-fungible tokens (NFTs), allowing streamers to sell their streams as unique and collectible items, generating additional revenue and adding a new dimension to the platform. NFTPort is also used to retrieve user-minted live streams.
 
-- During live streams, users can communicate in real-time through XMTP, with the goal of cultivating a sense of community. Users can also chat with anyone on the platform, adding a social aspect and making connections beyond those watching the same stream.
+- The Polygon blockchain offers security, transparency, and monetization opportunities for streamers, as well as adding a collectible aspect to the platform through the integration of NFTPort.
 
-- Users receive notifications via push protocol through the application. This can be used to alert users to stream starts, platform updates, and other important information. In addition to chat support, users can communicate efficiently with the support team regarding issues or questions.
+- XMTP enables real-time communication during live streams, fostering a sense of community and allowing users to chat with anyone on the platform.
 
-- The LiveStreamer application combines these technologies to create a comprehensive and engaging platform for its users. Some advantages of the application include:
+- Push protocol is used for notifications and efficient communication with the support team through chat support.
 
-- - Low-cost and scalable streaming thanks to the use of Livepeer
-- - Increased interactivity and immersiveness with the optional camera feature provided by Huddle01
-- - User-friendly experience with the integration of ENS for username-to-wallet address mapping
-- - Additional revenue stream for streamers with the ability to sell streams as NFTs through NFTPort
-- - Strong sense of community and social connections thanks to the real-time chat functionality provided by XMTP
-- - Efficient communication and support through the use of Push protocol for notifications and chat support.
+- LiveStreamer integrates these technologies to create a comprehensive and engaging platform for users, including:
+  - Low-cost and scalable streaming through Livepeer
+  - Immersive and interactive experience with the optional camera feature from Huddle01
+  - User-friendly experience with username-to-wallet mapping through ENS
+  - Additional revenue stream for streamers with NFT sales through NFTPort
+  - Strong sense of community and social connections through real-time chat with XMTP
+  - Efficient communication and support through push notifications and chat support.
 
-Overall, LiveStreamer provides a unique and engaging experience for its users through the integration of various technologies.
+In conclusion, LiveStreamer provides a one-of-a-kind experience for its users through its integration of various technologies.
 
+## Installing
 
+1. Clone the repository to your local machine
 
-# Installation
-
-Clone this repo by running 
-```yaml
-git clone https://github.com/ayushete02/LiveStreamer
 ```
-```yaml
+https://github.com/hrsh22/LiveStreamer.git
+```
+ 
+2. Navigate to the project directory
+
+```
 cd LiveStreamer
 ```
-```yaml
+
+3. Install the dependencies
+
+```
 npm install
 ```
-```yaml
+
+## Running the App
+Start the development server with the following command:
+```
 npm run dev
 ```
+## Demo
+
+- [Demo Video](https://youtu.be/JZWI3lPLbnI)
+
+- [Presentation](https://docs.google.com/presentation/d/1N2zJrQbRtcU5fjORpFprkB0AUkldNkTboZIUJXnt6_Y/edit?usp=sharing)
+
